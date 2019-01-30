@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+        <meta charset="utf-8" />
+        <title>本站的 Pelican 构建</title>
+        <link rel="stylesheet" href="/zh_cn/../theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/zh_cn/">Wklchris 个人站 </a></h1>
+                <nav><ul>
+                <!-- multi-lang buttons BEGIN -->
+                <li>
+                        <a href="/">English</a>
+                </li>
+                <li class="active">
+                        <a href="/zh_cn/">简体中文</a>
+                </li>
+                <li style="background-color: white; padding: 5px;">&nbsp</li>
+                <!-- multi-lang buttons END -->
+                    <li><a href="/zh_cn/pages/about-zh_cn.html">About</a></li>
+                    <li class="active"><a href="/zh_cn/category/blog.html">Blog</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/zh_cn/pelican-build.html" rel="bookmark"
+           title="Permalink to 本站的 Pelican 构建">本站的 Pelican 构建</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2019-01-30T00:00:00+08:00">
+                Published: 2019-01-30(周三)
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/zh_cn/author/wklchris.html">wklchris</a>
+        </address>
+<p>In <a href="/zh_cn/category/blog.html">Blog</a>.</p>
+
+</footer><!-- /.post-info -->      <h1>Pelican 构建站点</h1>
+<h2>主题</h2>
+<p>如果不满意站点主题，可以前往 <a href="http://www.pelicanthemes.com/">Pelican 主题站</a> 自行选择．本站使用的主题是默认的 notmyidea 主题（有改动），要配置这个默认主题，用户可以前往 Python 安装目录下的如下路径复制：</p>
+<div class="highlight"><pre><span></span>\Lib\site-packages\pelican\themes
+</pre></div>
+
+
+<p>然后回到站点文件夹，打开 <code>pelicanconf.py</code> 配置文件：</p>
+<div class="highlight"><pre><span></span><span class="n">THEME</span> <span class="o">=</span> <span class="s1">&#39;themes/notmyidea/&#39;</span>
+</pre></div>
+
+
+<p>接着就可以对主题文件夹下的 static 与 templates 子文件夹中的内容进行修改了．</p>
+<h2>双语或多语站点</h2>
+<p>借助 <a href="https://github.com/smartass101/pelican-plugins/tree/master/i18n_subsites">i18n_subsites</a> 插件，我们可以较轻松地配置双语站点．在 <code>pelicanconf.py</code> 配置文件中添加：</p>
+<div class="highlight"><pre><span></span><span class="n">PLUGIN_PATHS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;plugins&#39;</span><span class="p">]</span>
+<span class="n">PLUGINS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;i18n_subsites&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>下面介绍本站使用的方法．先将 notmyidea 主题配置完毕．</p>
+<p>然后到主题文件夹中，在 <code>base.html</code> 的 <code>&lt;nav&gt;&lt;ul&gt;</code> 后一行添加：</p>
+<div class="highlight"><pre><span></span>    {% if lang_siteurls %}
+    {% for lang, siteurl in lang_siteurls.items() %}
+    <span class="p">&lt;</span><span class="nt">li</span><span class="err">{%</span> <span class="na">if</span> <span class="na">lang </span><span class="o">=</span><span class="s">=</span> <span class="na">DEFAULT_LANG</span> <span class="err">%}</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;active&quot;</span><span class="err">{%</span> <span class="na">endif</span> <span class="err">%}</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ siteurl }}/&quot;</span><span class="p">&gt;</span>{{ lang | lookup_lang_name }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    {% endfor %}
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;background-color: white; padding: 5px;&quot;</span><span class="p">&gt;</span><span class="err">&amp;</span>nbsp<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    {% endif %}
+</pre></div>
+
+
+<p>与上述代码配套的是 <code>pelicanconf.py</code> 中对插件的如下配置：</p>
+<div class="highlight"><pre><span></span><span class="c1"># Overriding parameters</span>
+<span class="n">I18N_SUBSITES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;zh_cn&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;SITENAME&#39;</span><span class="p">:</span> <span class="s2">&quot;Wklchris 个人站&quot;</span><span class="p">,</span>
+        <span class="o">...</span> <span class="c1"># Other keys</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="c1">## Show text on language buttons</span>
+<span class="n">languages_lookup</span> <span class="o">=</span> <span class="p">{</span>
+             <span class="s1">&#39;en&#39;</span><span class="p">:</span> <span class="s1">&#39;English&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;zh_cn&#39;</span><span class="p">:</span> <span class="s1">&#39;简体中文&#39;</span><span class="p">,</span>
+             <span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">lookup_lang_name</span><span class="p">(</span><span class="n">lang_code</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">languages_lookup</span><span class="p">[</span><span class="n">lang_code</span><span class="p">]</span>
+
+<span class="n">JINJA_FILTERS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lookup_lang_name&#39;</span><span class="p">:</span> <span class="n">lookup_lang_name</span><span class="p">}</span>
+</pre></div>
+
+
+<p>最后，记住对所有的文章都添加 <code>lang</code> 标签．</p>
+<h2>重定向</h2>
+<p>有时需要将多个链接定向到同一篇文章上，这时可以使用插件 <a href="https://github.com/Nitron/pelican-alias">pelican-alias</a>．</p>
+<p>本站利用该插件，将作者信息页定向到了 About 页面．</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="/pages/about-zh_cn.html">关于我</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://github.com/wklchris">Github</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
