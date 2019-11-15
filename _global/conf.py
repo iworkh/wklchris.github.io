@@ -4,10 +4,11 @@ author = 'wklchris'
 
 extensions = [
     'nbsphinx',
-    'sphinx.ext.mathjax'
+    'sphinx.ext.mathjax',
+    'sphinx_rtd_theme'
 ]
 
-language = 'zh_cn'
+language = 'zh_CN'
 
 exclude_patterns = [
     '_build', 'Thumbs.db', '.DS_Store',
