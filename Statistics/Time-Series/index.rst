@@ -4,6 +4,7 @@
 本文介绍时间序列的基础内容，包括其背后的理论、AR(I)MA 模型、谱密度等。
 
 读者需要具有：
+
 - 概率论与统计学课程基础
 - （可选）R 语言基础
 
@@ -12,3 +13,4 @@
    :caption: Contents:
 
    Intro.ipynb
+   Stationary.ipynb
