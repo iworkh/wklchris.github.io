@@ -20,3 +20,8 @@ templates_path = ['../../_global/_templates']
 
 html_static_path = ['../../_global/_static']
 html_css_files = ['style.css']
+
+# Config: nbsphinx
+mathjax_config = {
+    'TeX': {'equationNumbers': {'autoNumber': 'AMS', 'useLabelIds': True}}
+}
