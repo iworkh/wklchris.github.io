@@ -14,3 +14,4 @@
 
    Intro.ipynb
    Stationary.ipynb
+   ARCH.ipynb
