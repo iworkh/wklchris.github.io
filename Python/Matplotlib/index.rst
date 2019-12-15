@@ -13,3 +13,4 @@ Python科学计算：Matplotlib
    :caption: Contents:
 
    BasicPlot.ipynb
+   AxesControl.ipynb
