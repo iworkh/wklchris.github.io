@@ -15,3 +15,4 @@ Python科学计算：Matplotlib
 
    BasicPlot.ipynb
    AxesControl.ipynb
+   PlotFunc.ipynb
